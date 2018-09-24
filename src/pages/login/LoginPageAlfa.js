@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image} from 'react-native'; 
-import ClienteList from '../components/ClienteList';
+import ClienteList from '../../components/ClienteList';
 
 class LoginPageAlfa extends React.Component {
 

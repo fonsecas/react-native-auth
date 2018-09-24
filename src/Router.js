@@ -1,14 +1,13 @@
 
     import { createStackNavigator, createDrawerNavigator, createSwitchNavigator, DrawerItems } from 'react-navigation';
     import React from 'react';
-    import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, ScrollView, Dimensions, Image } from 'react-native';
-    import LoginPage from './pages/LoginPage';
-    import MainPage from './pages/MainPage';
-    import LostPasswordPage from './pages/LostPasswordPage';
-    import AuthLoadingScreen from './pages/AuthLoadingScreen'
-    import Icon from 'react-native-vector-icons/Ionicons'
-    import Drawer from './components/Drawer'
-     
+    import LoginPage from './pages/login/LoginPage';
+    import Painel from './pages/painel';
+    import Pessoas from './pages/pessoas'
+    import PessoaDetail from './pages/pessoas/PessoaDetail'
+    import AuthLoadingScreen from './pages/login/AuthLoadingScreen'
+    import ListPessoas from './pages/pessoas/ListPessoas'
+    import SideBar from './components/sidebar'
    
         const AuthStackNavigator = createStackNavigator({
             LoginPage: {
@@ -29,95 +28,34 @@
             }, 
           
         })
-       
-//CRIAR O HEADER
-const AppStackNavigator = createStackNavigator({
-  AppTabNavigator: {
-    screen: MainPage,
-    navigationOptions: ({ navigation }) => ({
-      title: 'DashBoard',
-      headerLeft: (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          <View style={{ paddingHorizontal: 10 }}>
-            <Icon name="md-menu" size={24} color={'white'}/>
-            {console.log(navigation)}
-          </View>
-        </TouchableOpacity>
-      ),
-      headerRight: (
-        <TouchableOpacity onPress={() => null}>
-          <View style={{ paddingHorizontal: 10 }}>
-            <Icon name="md-power" size={24} color={'white'}/>
-          </View>
-        </TouchableOpacity>
-      ),
-      headerStyle: {
-        backgroundColor: "#262626",
-      },
-      headerTitleStyle: {
-        color: 'white',
-    }
-    })
-  }
-})
 
-
-//MONTA O MENU LATERAL
-const AppDrawerNavigator = createDrawerNavigator({
-  Painel: {
-    screen: AppStackNavigator,
-    navigationOptions: {
-      drawerIcon : ({tintColor}) => (
-        <Icon name='md-podium' style={{fontSize:24, color:tintColor}}/>
-      )
-    }
+const Drawer = createDrawerNavigator(
+  {
+    Painel: { screen: Painel},
+    Pessoas : {screen: Pessoas}
   },
-  Contatos : {
-    screen: LostPasswordPage,
-    navigationOptions: {
-      drawerIcon : ({tintColor}) => (
-        <Icon name='md-people' style={{fontSize:24, color:tintColor}}/>
-      )
+  {
+    initialRouteName: "Painel",
+    contentOptions: {
+      activeTintColor: "#e91e63"
+    },
+    contentComponent: props => <SideBar {...props} />
   }
-},
-  Atendimento : {
-    screen: LostPasswordPage,
-    navigationOptions: {
-      drawerIcon : ({tintColor}) => (
-        <Icon name='md-headset' style={{fontSize:24, color:tintColor}}/>
-      )
-  }
-},
-Agenda : {
-  screen: LostPasswordPage,
-  navigationOptions: {
-    drawerIcon : ({tintColor}) => (
-      <Icon name='md-calendar' style={{fontSize:24, color:tintColor}}/>
-    )
-}
-},
-Comunicação : {
-  screen: LostPasswordPage,
-  navigationOptions: {
-    drawerIcon : ({tintColor}) => (
-      <Icon name='md-megaphone' style={{fontSize:24, color:tintColor}}/>
-    )
-}
-} 
-}, {
-  contentComponent: Drawer,
-  contentOptions:{
-    activeTintColor: '#2B87D0',
-    activeBackgroundColor: '#262626',
-    inactiveTintColor: 'white',
-    inactiveBackgroundColor: 'transparent',
-    
-  }
-})
+)
 
+const AppNavigator = createStackNavigator(
+  {
+    Drawer: { screen: Drawer },
+    ListPessoas: {screen: ListPessoas},
+    PessoaDetail: {screen: PessoaDetail}
+  },
+  {
+    initialRouteName: "PessoaDetail", 
+    headerMode: "none"
+  })
 
 export default createSwitchNavigator({
   AuthLoading: AuthLoadingScreen,
   Auth: AuthStackNavigator,
-  App: AppDrawerNavigator
+  App: AppNavigator
 })

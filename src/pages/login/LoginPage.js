@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, Text, StyleSheet, Button, ActivityIndicator, Alert, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
-import { tryLogin } from '../actions';
+import { tryLogin } from '../../actions';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -61,22 +61,7 @@ class LoginPage extends React.Component {
     }
 
 
-    tryLogout() {
-        fetch('http://api.gerenciamentopolitico.com.br:8080/api/v1/auth/logout', {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            }
-        }).then((response) => response.json())
-            .then((responseJson) => {
-                return console.log(responseJson);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-            .then(() => this.setState({ isLoading: false }))
-    }
+    
     
 
     renderButton() {
@@ -93,7 +78,7 @@ class LoginPage extends React.Component {
     renderButtonLogout() {
         return (<Button
             title="Sair"
-            onPress={() => this.tryLogout()}
+            onPress={() => null}
         />
         )
     }
@@ -108,7 +93,7 @@ class LoginPage extends React.Component {
                 <View style={styles.loginContainer}>
                     <Image
                         style={styles.logo}
-                        source={require('../img/logo.png')} />
+                        source={require('../../img/logo.png')} />
                 </View>
 
                 <View style={styles.SectionStyle}>

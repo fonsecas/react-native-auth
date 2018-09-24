@@ -48,7 +48,7 @@ class LostPasswordPage extends React.Component {
                     ],
                     { cancelable: false }
                   )
-               console.log(responseJson)
+              // console.log(responseJson)
             })
              .catch((error) => {
                  console.error(error); 
