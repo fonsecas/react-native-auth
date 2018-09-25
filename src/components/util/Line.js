@@ -21,7 +21,9 @@ const styles = StyleSheet.create({
         paddingBottom: 3,
         paddingLeft: 10,
         borderBottomWidth: 1, 
-        borderColor: '#f7f7f7'
+        borderColor: '#f7f7f7',
+        alignItems: 'center',
+        justifyContent: 'center',
 
 	},
 	cell: {
@@ -30,11 +32,15 @@ const styles = StyleSheet.create({
 
 	},
 	label: {
-		fontWeight: 'bold',
+        fontWeight: 'bold',
+        fontSize: 12,
 		flex: 1
 	},
 	content: {
         flex: 3,
+        fontSize: 15,
+        color: '#B1A6AD'
+        
 
 	},
 	longLabel: {

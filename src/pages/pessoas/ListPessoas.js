@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View} from 'react-native'; 
+import { StyleSheet, View, ActivityIndicator} from 'react-native'; 
 import Lista from '../../components/pessoas/ListaPessoas'
 import {
     Container,
@@ -19,6 +19,7 @@ class ListPessoas extends React.Component {
 
         this.state = {
           pessoas: [],
+          isLoading: false
         }
        
     }
@@ -33,7 +34,8 @@ class ListPessoas extends React.Component {
             },  
         }).then((response) => response.json())
             .then((responseJson) => { 
-                this.setState({pessoas : responseJson}) 
+                this.setState({pessoas : responseJson,
+                                isLoading: true}) 
               //  console.log(this.state.pessoas)
                 // const action = getListas(responseJson);
                 // dispatch(action);
@@ -46,6 +48,28 @@ class ListPessoas extends React.Component {
     render(){
         
         const descricao = this.props.navigation.state.params.props.item.descricao;
+        if (!this.state.isLoading) {
+            return (<Container style={styles.container}>
+                <View style={{ backgroundColor: "#262626"}}>
+                        <Header style={{ backgroundColor: "#262626", marginTop: 20}}>
+                      <Left>
+                        <Button
+                          transparent
+                          onPress={() => this.props.navigation.goBack() }
+                        >
+                          <Icon name="arrow-back" size={24} color={'white'}/>
+                        </Button>
+                      </Left>
+                      <Body>
+                        <Text style={{color: 'white'}}>{descricao}</Text>
+                      </Body>
+                      <Right />
+                    </Header> 
+                    </View>
+                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <ActivityIndicator/>
+                    </View>
+                   </Container> )}
         return(  
           <Container style={styles.container}>
           <View style={{ backgroundColor: "#262626"}}>

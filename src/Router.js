@@ -50,7 +50,7 @@ const AppNavigator = createStackNavigator(
     PessoaDetail: {screen: PessoaDetail}
   },
   {
-    initialRouteName: "PessoaDetail", 
+    initialRouteName: "Drawer", 
     headerMode: "none"
   })
 

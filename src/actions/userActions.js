@@ -77,8 +77,8 @@ export const getLista = () => dispatch  => {
            
 }
 
-export const getPessoaDetail = () => dispatch =>{
-    return fetch(`http://api.gerenciamentopolitico.com.br:8080/api/v1/pessoas/642452`, {
+export const getPessoaDetail = ( id ) => dispatch =>{
+    return fetch(`http://api.gerenciamentopolitico.com.br:8080/api/v1/pessoas/` + id, {
             method: 'GET',
             headers: { 
             Accept: 'application/json',

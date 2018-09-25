@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, AsyncStorage} from 'react-native'; 
+import { StyleSheet, View, AsyncStorage,ActivityIndicator} from 'react-native'; 
 import Icon from 'react-native-vector-icons/Ionicons'
 import Lista from '../../components/pessoas/Lista';
 import { connect } from 'react-redux';
@@ -7,14 +7,9 @@ import { getLista } from '../../actions';
 import {
     Container,
     Header,
-    Title,
-    Content,
     Button,
     Text,
-    Footer,
-    FooterTab,
     Left,
-    Right,
     Body
   } from "native-base";
 class ListListas extends React.Component {
@@ -23,7 +18,8 @@ class ListListas extends React.Component {
 
     this.state = {
       user: "",
-      lista: []
+      lista: [],
+      isLoading: false
     }
     this.item = this.getItem('3123123')
   }
@@ -47,12 +43,37 @@ class ListListas extends React.Component {
   componentDidMount(){
     this.props.getLista()
     .then((lista) => {
-      this.setState({lista : lista})
+      this.setState({lista : lista,
+                      isLoading: true})
         //console.log(user); 
     }) 
   }
   render(){
-   const listas = this.state.lista;
+    const listas = this.state.lista;
+    if (!this.state.isLoading) {
+      return ( <Container style={styles.container}>
+        <View style={{ backgroundColor: "#262626"}}>
+                <Header style={{ backgroundColor: "#262626", marginTop: 20}}>
+              <Left>
+                <Button
+                  transparent
+                  onPress={() => this.props.navigation.toggleDrawer() }
+                >
+                  <Icon name="md-menu" size={24} color={'white'}/>
+                </Button>
+              </Left>
+              <Body>
+                <Text style={{color: 'white'}}>Lista Pessoas</Text>
+              </Body>
+              
+            </Header>
+            </View>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+           <ActivityIndicator/>
+           </View>
+           </Container> 
+);
+    }
    return( 
     <Container style={styles.container}>
     <View style={{ backgroundColor: "#262626"}}>
